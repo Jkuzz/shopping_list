@@ -1,0 +1,85 @@
+body {
+	font: 14pt Calibri, Verdana, Geneva, sans-serif;
+
+	margin: 5%;
+	padding: 0px;
+	background: #262626;
+    color: #f0f0f0;
+}
+
+#data-table {
+    /* table-layout: fixed; */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr {
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: lightslategray;
+}
+
+button {
+    border: 0;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+tbody .movement button{
+    background: rgb(255, 224, 51);
+}
+
+th, td {
+    padding: 10px;
+}
+
+#data-table tbody tr:nth-child(odd) {
+    background: #363636;
+}
+
+.movement {
+    text-align: center;
+}
+
+.th-movement {
+    width: 80px;
+}
+
+.edit {
+    width: 20%;
+    text-align: center;
+}
+
+#add-amount {
+    width: 15%;
+    text-align: center;
+}
+
+#add-item {
+    border-width: 1px;
+    border-style: solid;
+    border-color: lightslategray;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#add-name {
+    text-align: center;
+}
+
+#add-name .name-input {
+    width: 90%;
+}
+
+#add-item input {
+    font: 14pt Calibri, Verdana, Geneva, sans-serif;
+}
+
+#add-item #add-btn {
+    max-width: 60px;
+    max-height: 40px;
+    margin: 10px;
+}

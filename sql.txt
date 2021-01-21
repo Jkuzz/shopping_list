@@ -1,0 +1,65 @@
+DELIMITER //
+CREATE OR REPLACE PROCEDURE addToList (
+    inName VARCHAR(100),
+    inAmount INT(11)
+)
+BEGIN
+	DECLARE newPosition INT(11);
+    DECLARE itemId INT(10);
+    
+	INSERT IGNORE INTO items(name) VALUES (inName);
+    
+	SELECT id INTO itemId FROM items WHERE name=inName;
+	SELECT MAX(position) + 1 INTO newPosition FROM list;
+    
+	INSERT INTO list(item_id, amount, position) VALUES (itemId, inAmount, newPosition)
+    	ON DUPLICATE KEY UPDATE amount=inAmount;
+END//
+
+
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE removeFromList (    
+    inId INT(10)
+)
+BEGIN
+	DECLARE prevPosition INT(10);    
+    SELECT position INTO prevPosition FROM list WHERE item_id=inId;
+    DELETE FROM list
+    WHERE item_id=inId;
+    
+    UPDATE list
+    	SET position = IF(position<=prevPosition, position, position-1)
+END//
+
+
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE moveInList(
+	inId INT(10),
+	inDirection INT(1)
+)
+BEGIN
+	DECLARE oldPos INT(10);
+    DECLARE posMax INT(10);    
+	SELECT position INTO oldPos FROM list WHERE item_id = inID;
+
+	IF inDirection = 0 THEN
+		UPDATE list
+		SET position =
+			CASE position
+			WHEN oldPos THEN IF(oldPos > 1, oldPos-1, oldPos) 
+			WHEN oldPos-1 THEN IF(oldPos > 1, oldPos, oldPos-1) 
+			END
+		WHERE position IN (oldPos, oldPos-1);			
+	ELSE
+		SELECT MAX(position) INTO posMax FROM list;
+		UPDATE list
+		SET position =
+			CASE position
+			WHEN oldPos THEN IF(oldPos < posMax, oldPos+1, oldPos) 
+			WHEN oldPos+1 THEN IF(oldPos < posMax, oldPos, oldPos+1) 
+			END
+		WHERE position IN (oldPos, oldPos+1);		
+	END IF;
+END//
