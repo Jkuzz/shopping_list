@@ -19,21 +19,20 @@ function databaseQuery(action, requestBody = null) {
             // },
             // body: JSON.stringify({requestBody})
             body: fd
-        }
+        };
     }
     let promise = new Promise((resolve, reject) => {
-        fetch(
-            './restapi/index.php?action=' + action, requestInit
-        )
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) resolve(data.payload);
-            else reject(data.error);
-        })
-        .catch(error => {reject(error)});
-    })
+        fetch('./restapi/index.php?action=' + action, requestInit)
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) resolve(data.payload);
+                else reject(data.error);
+            })
+            .catch(error => {reject(error)});
+    });
     return promise;
 }
+
 
 /*
  * Finds name of item based on provided id
@@ -46,6 +45,7 @@ function itemIdToName(knownItems, idToFind) {
     }
 }
 
+
 /*
  * Creates on-click function for list item delete buttons
  */
@@ -56,6 +56,7 @@ function makeDeleteButtonClick(idToDelete, row) {
             .catch(error => window.alert(error));
     }
 }
+
 
 /*
  * Swaps visibility of edit, delete and save buttons of given row
@@ -71,6 +72,7 @@ function swapRowButtons(row) {
         row.querySelector('.edit .btn-save').style.display = 'none';
     }
 }
+
 
 /*
  * Creates on-click function for list item save buttons
@@ -95,6 +97,7 @@ function makeSaveButtonClick(idToSave, row, oldValue) {
     }
 }
 
+
 /*
  * Creates on-click function for list item edit buttons
  */
@@ -112,10 +115,10 @@ function makeEditButtonClick(idToEdit, row) {
     }
 }
 
+
 /*
  * Creates functions for move buttons to move rows in table
  */
-
 function makeMoveButtonClick(row, direction, idToMove) {
     if (direction === 'up') {
         return () => {
@@ -149,6 +152,7 @@ function makeMoveButtonClick(row, direction, idToMove) {
     }
 }
 
+
 /*
  * Generates onclick functions for all buttons in the new row.
  */
@@ -160,6 +164,7 @@ function makeButtonClicks(row, listItem, knownItems) {
     row.querySelector('.movement .btn-up').onclick = makeMoveButtonClick(row, 'up', listItem.item_id)
     row.querySelector('.movement .btn-down').onclick = makeMoveButtonClick(row, 'down', listItem.item_id)
 }
+
 
 /*
  * Makes hidden number input for editing list item amount.

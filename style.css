@@ -50,7 +50,7 @@ th, td {
     text-align: center;
 }
 
-#add-amount {
+.amount {
     width: 15%;
     text-align: center;
 }

@@ -2,6 +2,7 @@
 
 define('DATA_FILE', __DIR__ . '/data.json');
 
+
 /**
  * Create and send JSON response.
  */
@@ -15,6 +16,7 @@ function json_response($payload = null, $error = '')
 	exit;
 }
 
+
 /**
  * Save internal data back to data file.
  */
@@ -22,6 +24,7 @@ function save_data($data)
 {
 	file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
 }
+
 
 /**
  * Safe way how to fetch value from an array and validate it via regex.
@@ -62,6 +65,7 @@ function rest_get_list($dbConn)
 	json_response($list);
 }
 
+
 /**
  * Retrieve all known items.
  */
@@ -90,6 +94,7 @@ function rest_post_amount($dbConn)
 		json_response(null, 'Invalid id!');
 }
 
+
 /*
  * Deletes an item from the list and decrements following items' position.
  */
@@ -103,6 +108,7 @@ function rest_post_delete($dbConn)
 	} else
 		json_response(null, 'Invalid id!');
 }
+
 
 /*
  * Moves the item with appropriate id, only if the move is legal.
@@ -124,6 +130,7 @@ function rest_post_move($dbConn)
 	else
 		json_response(null, 'Invalid id!');
 }
+
 
 /**
  * Add a new Record to the list and to the known items.
